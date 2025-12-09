@@ -1,10 +1,11 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import MapComponent from "../components/map/MapComponent";
+
+export default function HomePage() {
   return (
-    <>
-    <h1>Welcome to the Deployment Demo!</h1>
-    </>
-   
+    <div style={{ width: "100%", height: "100vh" }}>
+      <MapComponent />
+    </div>
   );
 }
