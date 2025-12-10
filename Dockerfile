@@ -44,17 +44,12 @@ RUN addgroup --system --gid 1001 nodejs
 # Create a system user named 'nextjs' with UID 1001
 RUN adduser --system --uid 1001 nextjs
 
-# Copy the public directory from the 'builder' stage
-COPY --from=builder /app/public ./public
-
-# Copy the .next directory from the 'builder' stage and set ownership to nextjs:nodejs
-COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
-
-# Copy node_modules from the 'builder' stage
-COPY --from=builder /app/node_modules ./node_modules
-
-# Copy package.json from the 'builder' stage
-COPY --from=builder /app/package.json ./package.json
+# Copy the standalone output from the builder stage
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+# Copy the static files from the builder stage
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+# Copy the public directory if it exists (use wildcard to avoid error if empty)
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 
 # Switch to the 'nextjs' user
 USER nextjs
@@ -64,6 +59,7 @@ EXPOSE 8080
 
 # Set the PORT environment variable to 8080
 ENV PORT 8080
+ENV HOSTNAME "0.0.0.0"
 
-# Set the default command to start the Next.js application
-CMD ["npm", "start"]
+# Set the default command to start the Next.js standalone server
+CMD ["node", "server.js"]
