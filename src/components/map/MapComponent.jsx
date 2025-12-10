@@ -15,17 +15,8 @@ const libraries = ['places', 'visualization'];
 import styles from './MapComponent.module.css';
 
 export default function MapComponent() {
-  const [apiKey, setApiKey] = useState('');
-  
-  useEffect(() => {
-    fetch('/api/config')
-      .then(res => res.json())
-      .then(data => setApiKey(data.apiKey))
-      .catch(err => console.error('Failed to load API key:', err));
-  }, []);
-
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: apiKey,
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
     libraries: libraries,
   });
 

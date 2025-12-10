@@ -26,7 +26,6 @@ const defaultCenter = {
 const libraries = ['places', 'visualization'];
 
 export default function HeatmapVisualization() {
-  const [apiKey, setApiKey] = useState('');
   const [vehicles, setVehicles] = useState([]);
   const [vehicleClasses, setVehicleClasses] = useState([]);
   const [selectedClass, setSelectedClass] = useState(null);
@@ -37,15 +36,8 @@ export default function HeatmapVisualization() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const heatmapLayerRef = useRef(null);
 
-  useEffect(() => {
-    fetch('/api/config')
-      .then(res => res.json())
-      .then(data => setApiKey(data.apiKey))
-      .catch(err => console.error('Failed to load API key:', err));
-  }, []);
-
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: apiKey,
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
     libraries: libraries,
   });
 
