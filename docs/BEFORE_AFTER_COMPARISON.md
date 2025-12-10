@@ -1,7 +1,6 @@
 # 📊 Before & After Comparison
 
 ## Architecture Changes
-695a521ff53645ebd799664c2f24ed39ab35a65d
 ### BEFORE
 ```
 Root Layout
