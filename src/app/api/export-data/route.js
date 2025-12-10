@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import { getFuelStations, getVehicleData } from '@/lib/bigquery';
 
+// Force dynamic rendering - prevent static generation at build time
+export const dynamic = 'force-dynamic';
+
 export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);

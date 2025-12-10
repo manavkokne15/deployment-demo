@@ -8,6 +8,12 @@ const bigquery = new BigQuery({
 
 // Returns the array of fuel stations from BigQuery
 export async function getFuelStations() {
+  // Skip BigQuery during build phase to prevent timeouts
+  if (process.env.NEXT_PHASE === 'phase-production-build' || !process.env.GCP_PROJECT_ID) {
+    console.log('⚠️  Skipping BigQuery query during build phase');
+    return [];
+  }
+
   const query = `
     SELECT 
       Fuel_Type_Code,
@@ -45,6 +51,12 @@ export async function getFuelStations() {
 
 // Returns the array of vehicle data from BigQuery
 export async function getVehicleData() {
+  // Skip BigQuery during build phase to prevent timeouts
+  if (process.env.NEXT_PHASE === 'phase-production-build' || !process.env.GCP_PROJECT_ID) {
+    console.log('⚠️  Skipping BigQuery query during build phase');
+    return [];
+  }
+
   const query = `
     SELECT 
       State,
