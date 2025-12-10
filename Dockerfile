@@ -59,11 +59,11 @@ COPY --from=builder /app/package.json ./package.json
 # Switch to the 'nextjs' user
 USER nextjs
 
-# Expose port 3000
-EXPOSE 3000
+# Expose port 8080 (Cloud Run default)
+EXPOSE 8080
 
-# Set the PORT environment variable to 3000
-ENV PORT 3000
+# Set the PORT environment variable to 8080
+ENV PORT 8080
 
 # Set the default command to start the Next.js application
 CMD ["npm", "start"]
