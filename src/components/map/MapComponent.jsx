@@ -11,7 +11,7 @@ import {
   getHeatmapIntensity,
 } from '@/utils/csvParser';
 
-const libraries = ['places'];
+const libraries = ['places', 'visualization'];
 import styles from './MapComponent.module.css';
 
 export default function MapComponent() {
